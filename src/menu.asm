@@ -1,5 +1,8 @@
 INCLUDE Irvine32.inc
 
+; Declare prototype (CRITICAL FIX)
+showMenu PROTO
+
 .data
 menuTitle BYTE "===== Inventory Management System =====",0dh,0ah,0
 menuOptions BYTE \
@@ -36,13 +39,11 @@ showMenu PROC
     cmp eax, 4
     je exitProgram
 
-    ; Invalid
     mov edx, OFFSET invalidMsg
     call WriteString
     ret
 
 option1:
-    ; will link later
     ret
 
 option2:

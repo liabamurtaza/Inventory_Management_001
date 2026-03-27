@@ -1,15 +1,16 @@
 INCLUDE Irvine32.inc
 
-EXTERN showMenu:PROC
+; Match prototype (CRITICAL)
+showMenu PROTO
 
 .code
 main PROC
 
 mainLoop:
     call showMenu
+    call Crlf
     jmp mainLoop
 
-    exit
 main ENDP
 
 END main
