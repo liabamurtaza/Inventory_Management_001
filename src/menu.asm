@@ -1,61 +1,104 @@
+;=====================================================
+; menu.asm
+; Main menu — 6 options
+;=====================================================
 INCLUDE Irvine32.inc
 
-; Declare prototype (CRITICAL FIX)
-showMenu PROTO
-AddItem PROTO
+EXTERN AddItem    : NEAR
+EXTERN ViewItems  : NEAR
+EXTERN RecordSale : NEAR
+EXTERN UpdateItem : NEAR
+EXTERN DeleteItem : NEAR
 
-.data
-menuTitle BYTE "===== Inventory Management System =====",0dh,0ah,0
-menuOptions BYTE \
-"1. Add Product",0dh,0ah,\
-"2. View Products",0dh,0ah,\
-"3. Sales",0dh,0ah,\
-"4. Exit",0dh,0ah,\
-"Enter your choice: ",0
-
-invalidMsg BYTE "Invalid choice!",0dh,0ah,0
-
-.code
 PUBLIC showMenu
 
+.data
+menuTitle   BYTE 0Dh,0Ah,\
+                 "  ========================================",0Dh,0Ah,\
+                 "     Inventory Management System          ",0Dh,0Ah,\
+                 "  ========================================",0Dh,0Ah,0
+
+menuOptions BYTE "  1. Add Product",0Dh,0Ah,\
+                 "  2. View Products",0Dh,0Ah,\
+                 "  3. Record a Sale",0Dh,0Ah,\
+                 "  4. Update Product",0Dh,0Ah,\
+                 "  5. Delete Product",0Dh,0Ah,\
+                 "  6. Exit",0Dh,0Ah,\
+                 "  Your choice: ",0
+
+invalidMsg  BYTE 0Dh,0Ah,"  [!] Invalid choice. Enter 1-6.",0Dh,0Ah,0
+
+.code
+
+;-----------------------------------------------------
+; showMenu
+; Returns eax=1 to signal exit, eax=0 to keep looping.
+;-----------------------------------------------------
 showMenu PROC
 
-    mov edx, OFFSET menuTitle
+    push ebx
+    push ecx
+    push edx
+
+    mov  edx, OFFSET menuTitle
     call WriteString
 
-    mov edx, OFFSET menuOptions
+    mov  edx, OFFSET menuOptions
     call WriteString
 
     call ReadInt
 
-    cmp eax, 1
-    je option1
+    cmp  eax, 1
+    je   SM_Add
+    cmp  eax, 2
+    je   SM_View
+    cmp  eax, 3
+    je   SM_Sale
+    cmp  eax, 4
+    je   SM_Update
+    cmp  eax, 5
+    je   SM_Delete
+    cmp  eax, 6
+    je   SM_Exit
 
-    cmp eax, 2
-    je option2
-
-    cmp eax, 3
-    je option3
-
-    cmp eax, 4
-    je exitProgram
-
-    mov edx, OFFSET invalidMsg
+    mov  edx, OFFSET invalidMsg
     call WriteString
-    ret
+    xor  eax, eax
+    jmp  SM_Done
 
-option1:
+SM_Add:
     call AddItem
-    ret
+    xor  eax, eax
+    jmp  SM_Done
 
-option2:
-    ret
+SM_View:
+    call ViewItems
+    xor  eax, eax
+    jmp  SM_Done
 
-option3:
-    ret
+SM_Sale:
+    call RecordSale
+    xor  eax, eax
+    jmp  SM_Done
 
-exitProgram:
-    exit
+SM_Update:
+    call UpdateItem
+    xor  eax, eax
+    jmp  SM_Done
+
+SM_Delete:
+    call DeleteItem
+    xor  eax, eax
+    jmp  SM_Done
+
+SM_Exit:
+    mov  eax, 1
+
+SM_Done:
+    pop  edx
+    pop  ecx
+    pop  ebx
+    ret
 
 showMenu ENDP
 
