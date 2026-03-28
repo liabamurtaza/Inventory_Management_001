@@ -2,6 +2,7 @@ INCLUDE Irvine32.inc
 
 ; Declare prototype (CRITICAL FIX)
 showMenu PROTO
+AddItem PROTO
 
 .data
 menuTitle BYTE "===== Inventory Management System =====",0dh,0ah,0
@@ -44,6 +45,7 @@ showMenu PROC
     ret
 
 option1:
+    call AddItem
     ret
 
 option2:
