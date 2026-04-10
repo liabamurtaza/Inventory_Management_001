@@ -27,6 +27,9 @@ PUBLIC msgDelConfirm, msgDelOK, msgDelCancel
 PUBLIC msgSaleHeader, msgSaleEnterID, msgSaleEnterQty
 PUBLIC msgSaleNotFound, msgSaleNoStock, msgSaleOK, msgSaleTotal
 
+; ---- File strings ----
+PUBLIC msgSaveOK, msgSaveErr, msgLoadOK, msgLoadErr, inventoryFile
+
 .data
 
 MAX_ITEMS = 10
@@ -88,6 +91,13 @@ msgSaleNotFound BYTE 0Dh,0Ah,"  [!] Item ID not found.",0Dh,0Ah,0
 msgSaleNoStock  BYTE 0Dh,0Ah,"  [!] Not enough stock.",0Dh,0Ah,0
 msgSaleOK       BYTE 0Dh,0Ah,"  [OK] Sale recorded. Stock updated.",0Dh,0Ah,0
 msgSaleTotal    BYTE "  Total Sale Value (Rs): ",0
+
+; ---- File handling ----
+inventoryFile  BYTE "inventory.dat",0
+msgSaveOK      BYTE 0Dh,0Ah,"  [OK] Data saved to inventory.dat",0Dh,0Ah,0
+msgSaveErr     BYTE 0Dh,0Ah,"  [!] Error saving data.",0Dh,0Ah,0
+msgLoadOK      BYTE 0Dh,0Ah,"  [OK] Inventory loaded from file.",0Dh,0Ah,0
+msgLoadErr     BYTE 0Dh,0Ah,"  [!] No saved data found. Starting fresh.",0Dh,0Ah,0
 
 .code
 END

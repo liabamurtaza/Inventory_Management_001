@@ -1,0 +1,1 @@
+"C:\Program Files\Microsoft Visual Studio\2022\Community\VC\Tools\MSVC\14.41.34120\bin\Hostx86\x86\link.exe" obj\main.obj obj\menu.obj obj\inventory.obj obj\sales.obj obj\data.obj obj\file.obj obj\utils.obj C:\Masm615\LIB\Irvine32.lib C:\Masm615\LIB\kernel32.lib C:\Masm615\LIB\user32.lib /SUBSYSTEM:CONSOLE /OUT:main.exe 

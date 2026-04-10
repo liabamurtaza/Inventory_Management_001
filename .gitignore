@@ -5,3 +5,4 @@ main.exe
 *.lst
 *.ilk
 *.pdb
+inventory.dat
